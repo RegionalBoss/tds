@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strconv"
 
-	bin "github.com/thda/tds/binary"
+	bin "github.com/RegionalBoss/tds/binary"
 
 	"errors"
 )
@@ -198,9 +198,7 @@ func (e emptyMsg) Read(*bin.Encoder) error {
 	return nil
 }
 
-//
 // capabilities
-//
 const defaultcapabilitiesLength = 14
 
 // capabilities request bit

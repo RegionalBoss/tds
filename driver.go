@@ -151,9 +151,9 @@ func NewConn(dsn string) (*Conn, error) {
 
 // GetEnv return a map of environments variables.
 // The following keys are garanteed to be present:
-//  - server
-//  - database
-//  - charset
+//   - server
+//   - database
+//   - charset
 func (c Conn) GetEnv() map[string]string {
 	return map[string]string{
 		"server":     c.session.serverType,
@@ -177,7 +177,7 @@ type SybDriver struct {
 var sybDriverInstance = &SybDriver{}
 
 // Open opens a connection to the server.
-// See https://github.com/thda/tds#connection-string for the dsn formatting.
+// See https://github.com/RegionalBoss/tds#connection-string for the dsn formatting.
 // It also set the custum error handler if any.
 func (d *SybDriver) Open(dsn string) (driver.Conn, error) {
 	conn, err := NewConn(dsn)
@@ -193,23 +193,23 @@ func (d *SybDriver) Open(dsn string) (driver.Conn, error) {
 //
 // Example:
 //
-// 	// Print showplan messages
-// 	conn.Driver().(tds.ErrorHandler).SetErrorhandler(func(m tds.SybError) bool {
-// 		if m.Severity == 10 {
-// 			if (m.MsgNumber >= 3612 && m.MsgNumber <= 3615) ||
-// 				(m.MsgNumber >= 6201 && m.MsgNumber <= 6299) ||
-// 				(m.MsgNumber >= 10201 && m.MsgNumber <= 10299) {
-// 				fmt.Printf(m.Message)
-// 			} else {
-// 				fmt.Println(strings.TrimRight(m.Message, "\n"))
-// 			}
-// 		}
+//	// Print showplan messages
+//	conn.Driver().(tds.ErrorHandler).SetErrorhandler(func(m tds.SybError) bool {
+//		if m.Severity == 10 {
+//			if (m.MsgNumber >= 3612 && m.MsgNumber <= 3615) ||
+//				(m.MsgNumber >= 6201 && m.MsgNumber <= 6299) ||
+//				(m.MsgNumber >= 10201 && m.MsgNumber <= 10299) {
+//				fmt.Printf(m.Message)
+//			} else {
+//				fmt.Println(strings.TrimRight(m.Message, "\n"))
+//			}
+//		}
 //
-// 		if m.Severity > 10 {
-// 			fmt.Print(m)
-// 		}
-// 		return m.Severity > 10
-// 	})
+//		if m.Severity > 10 {
+//			fmt.Print(m)
+//		}
+//		return m.Severity > 10
+//	})
 func (d *SybDriver) SetErrorhandler(fn func(s SybError) bool) {
 	d.Lock()
 	defer d.Unlock()
